@@ -1,70 +1,62 @@
-# Getting Started with Create React App
+# Project - CONMIVIAJE: built using MERN STACK (Mongo, Express, React.JS, Node)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
 
-## Available Scripts
+This is a full-stack application that allows users to find a destiny where they want to travel to, and get information for living or move to that country. There are two kind of users, Admin users and external users. The Users can create an account, log in, see all offers and add offers to their favorites. The Admin user can add, edit, and delete offers and others services and information for travelers.
 
-In the project directory, you can run:
+## Installation
 
-### `npm start`
+1. Clone the repository
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```bash
+git clone
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+2. Install the dependencies
 
-### `npm test`
+```bash
+npm install
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+3. Create a .env file in the root folder and add the following environment variables:
 
-### `npm run build`
+```bash
+PORT=3001
+DB_URI=your_mongoDB_URI
+CLOUDINARY_NAME=your_cloudinary_name
+CLOUDINARY_API_KEY=your_cloudinary_api_key
+CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. Run the server to develop locally
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+npm run dev
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# Aplication Routes
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## **Conmiviaje routes**:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+| URL path                    | Description       | Protected                         | 
+| :--------------------------:|:-----------------:| :--------------------------------:| 
+|            /                | Home Page         |             No                    | 
+|        /login               | Login Page        |             No                    | 
+|        /SignUp              | SignUp Page       |             No                    | 
+|        /profile               | Login Page        |             No                    | 
+|        /offers               | Login Page        |             No                    | 
+|        /offers/:id               | Login Page        |             No                    | 
+|        /offers/create               | Login Page        |             No                    | 
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## **User routes**:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+## **Auth routes**:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
