@@ -31,4 +31,5 @@ class OfferService extends AxiosConfig {
     } 
 }
 
-export default new OfferService()
+const offerService = new OfferService()
+export default offerService

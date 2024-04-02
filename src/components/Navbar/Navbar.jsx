@@ -1,6 +1,7 @@
 import { Flex, Image, Text } from "@chakra-ui/react";
 import { Link, useLocation } from "react-router-dom";
 import logoCmv from "../../img/conmiviajecom-logo.png";
+import banner from "../../img/banner1.jpg"
 import CustomLink from "../CustomLink/CustomLink";
 import AuthLink from "../AuthLink/AuthLink";
 import { useContext } from "react";
@@ -22,12 +23,15 @@ const Navbar = () => {
     const location = useLocation()    
     
     return(
-    <Flex
+    <Flex flexDir={"column"}>
+    <Flex 
         padding={"34px 80px"}
         justifyContent={"space-between"}
         alignItems={"center"}
     >
-        <Image src={logoCmv}></Image>
+        <CustomLink to="/">
+            <Image src={logoCmv}/>
+        </CustomLink>
         <Flex gap={"34px"}>
             {
                 NAVIGATION_LINK.map(({link, text}) => {
@@ -79,7 +83,13 @@ const Navbar = () => {
             )
             } 
         </Flex>
+        
+        </Flex>
+        <Flex backgroundImage={banner} 
+            padding={"34px 80px"} width={"100%"} maxH={"40px"}>        
+        </Flex>    
     </Flex>
+    
     )
 }
 export default Navbar;

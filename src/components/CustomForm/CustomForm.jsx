@@ -26,10 +26,10 @@ const CustomForm = ({
             )}
             <form onSubmit={onSubmit} style={{ marginTop: "30px" }}>
                 <Flex flexDir={"column"} gap={"30px"}>
-                    {options.map((option) => {
+                    {options.map(({option, type}) => {
                         return (
                         <Input
-                            type={option === "password" ? "password" : "text"}
+                            type= {type} //{option === "password" ? "password" : "text"}
                             name={option}
                             onChange={onChange}
                             key={option}

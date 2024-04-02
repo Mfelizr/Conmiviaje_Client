@@ -1,6 +1,7 @@
 import { Box, Flex, Text } from "@chakra-ui/react"
 import React from "react"
 import PenEditIcon from "../PenEditIcon/PenEditIcon"
+import { format } from "date-fns";
 
 const OfferDetails = ({ onOpen, offerDetails }) => {
   return (
@@ -17,18 +18,24 @@ const OfferDetails = ({ onOpen, offerDetails }) => {
         flexDir={"column"}
       >
         {offerDetails.map(({ name, content }) => {
+                    //console.log("Resultado: ", ({content} && (name.slice(0,5) == "Fecha")))
+                    //console.log("Resultado fecha: ", name.slice(0,5))
             return (
                 <Box key={name}>              
                     <Text>
                         <Text as={"span"} fontWeight={"bold"}>
                             {name}{": "}
                         </Text>
-                        {content}
-                    </Text>              
+                            {content}                        
+                        </Text>              
                 </Box>
             )
         })}       
-            <Flex position={"absolute"} onClick={onOpen} cursor={"pointer"} top={"25px"} right={"25px"}>
+            <Flex position={"absolute"} 
+                onClick={onOpen} 
+                cursor={"pointer"} 
+                top={"25px"} 
+                right={"25px"}>
                 <PenEditIcon/>
             </Flex> 
         </Flex>       

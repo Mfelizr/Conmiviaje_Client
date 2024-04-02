@@ -7,7 +7,15 @@ import OfferDetails from "../../components/OfferDetails/OfferDetails";
 import CustomForm from "../../components/CustomForm/CustomForm";
 import Modal from "../../components/Modal/Modal";
 
-const OPTIONS = ["image", "description", "price", "date_start", "date_end", "conditions"]
+//const OPTIONS = ["image", "description", "price", "date_start", "date_end", "conditions"]
+const OPTIONS = [    
+    {option: "image", type:"url"}, 
+    {option: "description", type:"text"}, 
+    {option: "price", type:"number"}, 
+    {option: "date_start", type:"date"}, 
+    {option: "date_end", type:"date"}, 
+    {option: "conditions", type:"text"}, 
+]
 const OFFER_INI_DATA = {
     country:"",
     image:"",
@@ -29,10 +37,10 @@ const OfferDetailsPage = () => {
     const { id } = useParams()
 
     const {image, country, description, price, date_start, date_end, conditions} = offerData
-    if (!countryName) {countryName = country.name}
+    //if (!countryName) {countryName = country.name}
    
     const OFFER_DETAILS = [
-        {name: "País", content: countryName},        
+        {name: "País", content: country.name},        
         {name: "Descripción", content: description},        
         {name: "Precio", content: price},        
         {name: "Fecha Inicial", content: date_start},        
@@ -45,7 +53,7 @@ const OfferDetailsPage = () => {
         try {
             const singleOffer = await offersServices.getOneOffers(id)
             //console.log("La oferta:", singleOffer)
-            setOfferData(singleOffer)
+            if (singleOffer) setOfferData(singleOffer)
         } catch (error) {
             console.error(error)
         }
@@ -56,7 +64,7 @@ const OfferDetailsPage = () => {
     //Evalua el cambio de valor del input
     const onChange = (e) => {
         const {name, value} = e.target
-        console.log("El name y el Value:", name, value)
+        //console.log("El name y el Value:", name, value)
         setEditOfferData({...editOfferData, [name]:value})
     }
     
@@ -67,8 +75,8 @@ const OfferDetailsPage = () => {
             console.log("Datos a Submit Edit:", editOfferData)
             const updatedOffer = await offersServices.updateOffer(id, editOfferData) 
             setShowModal(false)
-            console.log("Datos Guardados:", updatedOffer)                        
-            setOfferData(updatedOffer)
+            //console.log("Datos Guardados:", updatedOffer)                        
+            if (updatedOffer) setOfferData(updatedOffer)
         } catch (error) {
             console.error(error)
         }        

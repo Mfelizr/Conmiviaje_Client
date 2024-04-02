@@ -1,24 +1,21 @@
 import React, { createContext, useEffect, useState } from "react";
 import authService from "../services/auth.service";
+import countryService from "../services/country.service"
 import { useNavigate } from "react-router-dom";
 import { Text } from "@chakra-ui/react";
 
 export const AuthContext = createContext()
-
-const USER_INIT = {
-    username: "",
-    email: "",
-    avatar: "https://static-00.iconduck.com/assets.00/avatar-default-icon-2048x2048-h6w375ur.png",    
-    favoriteOffers: [],
-}
 
 export const AuthProvider = ({children}) => {
     const navigate = useNavigate()
     const [user, setUser] = useState (null)
     const [isLoading, setIsLoading] = useState(true)
     const [errMsg, setErrMsg] = useState("")
-
+    const [countriesData, setCountriesData] = useState(null)
+    const [originCountry, setOriginCountry] = useState(null)
+    const [destinationCountry, setDestinationCountry] = useState(null)
     
+
     const setToken = (token) => {
         //guardar token en localstorage
         localStorage.setItem("token", token)
@@ -70,11 +67,38 @@ export const AuthProvider = ({children}) => {
         setUser(null)
         navigate("/login")
     }
+    
+    //Para cargar paises desde el inicio y tenerlo disponible
+    const getCountriesList = async () => {        
+        try {
+            const countries = await countryService.getAllCountries()    
+            //console.log ("LISTA PAISES: ", countries)        
+            if (countries) setCountriesData(countries)
+            //console.log ("LISTA PAISES2: ", countriesData)
+        } catch (error) {
+            console.error("ERROR LISTA PAISES: ",error)
+            setErrMsg(error.data.response.message)
+        }
+    }
 
-    useEffect(() => {getUser()}, [])
+    //Para guardar el pais origen y destino seleccionado
+    const setOrigin = async (valueISO) => {
+        console.log("PAIS ORIGEN 1", valueISO)
+        if(valueISO) {await setOriginCountry(valueISO)}
+        console.log("PAIS ORIGEN 2", originCountry)
+    }
+    //Para guardar el pais origen y destino seleccionado
+    const setDestination = async (valueISO) => {
+        console.log("PAIS DESTINO 1", valueISO)
+        if(valueISO) {await setDestinationCountry(valueISO)}
+        console.log("PAIS DESTINO 2", destinationCountry)
+    }
+    
+    useEffect(() => {getCountriesList()}, [])
+    useEffect(() => {getUser()}, [])   
 
     return (
-        <AuthContext.Provider value={{user, login, logout, isLoading}}>
+        <AuthContext.Provider value={{user, login, logout, isLoading, countriesData, originCountry, destinationCountry, setOrigin, setDestination}}>
             {children}
         </AuthContext.Provider>
     )

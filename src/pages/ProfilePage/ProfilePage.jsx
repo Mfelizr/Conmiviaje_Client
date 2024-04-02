@@ -7,15 +7,13 @@ import FavoriteOffers from "../../components/FavoritOffers/FavoritOffers";
 import offersServices from "../../services/offers.services";
 import { AuthContext } from "../../contexts/AuthContext";
 
-let favoriteOffers2 = []
-
 const ProfilePage = () => {
     const {user} = useContext(AuthContext)
     
     const { username, email, avatar, favoriteOffers } = user    
 
     //Busca las ofertas
-    const getThreeOffers = async () => {        
+/*     const getThreeOffers = async () => {        
         try {
             const resOffers = await offersServices.getAllOffers()
             
@@ -25,7 +23,7 @@ const ProfilePage = () => {
             console.error("Error:", error)            
         }
     }    
-    useEffect(()=>{getThreeOffers()},[]) 
+    //useEffect(()=>{getThreeOffers()},[])  */
 
     const handleUserEdit = () => {}
     const handleUserDeletion = () => {}
@@ -35,7 +33,7 @@ const ProfilePage = () => {
             <Flex flexDir={"column"} gap={"44px"}>
                 <Title>Hola {username}</Title>
                 <ProfileBanner username={username} email={email} avatar={avatar} handleUserDeletion={handleUserDeletion} handleUserEdit={handleUserEdit}/>
-                <FavoriteOffers favoriteOffers={favoriteOffers}/> 
+                {/* <FavoriteOffers favoriteOffers={favoriteOffers}/> */}
             </Flex>            
         </PageWraper>        
     )

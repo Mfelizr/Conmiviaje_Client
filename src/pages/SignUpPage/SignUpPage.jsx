@@ -7,7 +7,13 @@ import authService from "../../services/auth.service";
 import { useNavigate } from "react-router-dom";
 
 const IMAGE = "https://conmiviaje.com/wp-content/uploads/2021/10/maximilien-t-scharner-318691-unsplash-576x1024.jpg"
-const OPTIONS = ["username", "email", "password"]
+//const OPTIONS = ["username", "email", "password"]
+const OPTIONS = [
+    {option: "username", type:"text"}, 
+    {option: "email", type:"email"}, 
+    {option: "password", type:"password"}, 
+]
+
 const INIT_DATA = {
     username:"",
     email:"",
@@ -15,7 +21,6 @@ const INIT_DATA = {
 }
 
 const SignUpPage = () => {
-    
     const [signupData, setSignupData] = useState(INIT_DATA)
     const [errMsg, setErrMsg] = useState("")
     const toast = useToast()    

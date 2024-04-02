@@ -12,7 +12,7 @@ const FeaturedOffers = () => {
         console.log("Busca 9 ofertas")
         try {
             const resOffers = await offerService.getAllOffers()
-            console.log("Imported Data:", resOffers )
+            //console.log("Imported Data:", resOffers )
             if (resOffers) setOffers(resOffers.slice(0,9) )            
         } catch (error) {
             console.error("Error:", error)            
