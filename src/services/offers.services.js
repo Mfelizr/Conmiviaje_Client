@@ -10,6 +10,11 @@ class OfferService extends AxiosConfig {
         return response.data       
     }
 
+    async getActiveOffers() {
+        const response = await this.axios.get('/listActive')
+        return response.data       
+    }
+
     async newOffer(offer) {
         const response = await this.axios.post('/create', offer)    
         console.log("Crear: ", response)         
@@ -20,6 +25,7 @@ class OfferService extends AxiosConfig {
         const response = await this.axios.get(`/getOne/${id}`)        
         return response.data       
     }
+
     async updateOffer(id, data) {
         console.log("Update: ", `/${id}`)
         const response = await this.axios.put(`/edit/${id}`, data)                

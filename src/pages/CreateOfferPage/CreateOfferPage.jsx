@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react"
 import FormPageLayaut from "../../components/FormPageLayaut/FormPageLayaut"
 import offersServices from "../../services/offers.services"
-import { Flex, Text } from "@chakra-ui/react"
+import { Flex, Text, useToast } from "@chakra-ui/react"
 import Input from "../../components/Input/Input"
 import SubmitButton from "../../components/SubmitButton/SubmitButton"
 import { AuthContext } from "../../contexts/AuthContext"
@@ -21,26 +21,29 @@ const OFFER_INI_DATA = {
 }
 
 const OPTIONS = [
-    {option: "country", type:"select"}, 
-    {option: "image", type:"url"}, 
-    {option: "description", type:"text"}, 
-    {option: "price", type:"number"}, 
-    {option: "date_start", type:"date"}, 
-    {option: "date_end", type:"date"}, 
-    {option: "conditions", type:"text"}, 
+    {option: "country", type:"select", placeholder: "País"}, 
+    {option: "image", type:"url", placeholder: "URL Imagen"}, 
+    {option: "description", type:"text", placeholder: "Descripción"}, 
+    {option: "price", type:"number", placeholder: "Precio"}, 
+    {option: "date_start", type:"date", placeholder: "Fecha Inicio"}, 
+    {option: "date_end", type:"date", placeholder: "Fecha Fin"}, 
+    {option: "conditions", type:"text", placeholder: "Condiciones"}, 
 ]
 
 const optionsSelect = [
-    { label: 'República Dominicana', value: '65fb7d0fb29b5aff6e2070a8' },
-    { label: 'España', value: '65fb7d5cb29b5aff6e2070a9' },    
+    { label: 'República Dominicana', value: '65fb7d0fb29b5aff6e2070a8', iso:"DO" },
+    { label: 'España', value: '65fb7d5cb29b5aff6e2070a9', iso: "ES" },    
+    { label: 'Canadá', value: '660bf505e4414b86e420e62a', iso: "CA" },   
+    { label: 'Estados Unidos', value: '660bf63ce4414b86e420e62f', iso: "US" },   
+    { label: 'Colombia', value: '660bf670e4414b86e420e630', iso: "CO" },    
 ] 
 
 function CreateOffersPage() {    
     const [offerData, setOfferData] = useState(OFFER_INI_DATA)
     const [errMsg, setErrMsg] = useState("")
-    const [optionSelected, setOptionSelected] = useState(null)
-    // const [countriesData, setCountriesData] = useState([])
+    const [optionSelected, setOptionSelected] = useState(null)    
     const { countriesData } = useContext(AuthContext)
+    const toast = useToast()
 
     const title = "Crear"
     const subtitle = "Registra Nueva Oferta"    
@@ -50,9 +53,9 @@ function CreateOffersPage() {
             return {...styles, 
                 minH:"70px",
                 fontWeight: "bold",
-                fontSize: "24px",                
+                fontSize: "20px",                
                 borderRadius: "20px",
-                backgroundColor: "#D9D9D9",
+                //backgroundColor: "#D9D9D9",
                 boxShadow: state.isFocused ? "black" : "none",
             }
       },
@@ -60,37 +63,37 @@ function CreateOffersPage() {
         return {
             ...styles,
             fontWeight: "bold",
-            fontSize: "24px",     
-            backgroundColor: "#D9D9D9",
+            fontSize: "20px",     
+            //backgroundColor: "#D9D9D9",
             color: "black",
         }
       }
-    }
-    //Actualiza el onchange para el select
-    const onChangeSelect = (value, name) => {
-        setOptionSelected(value)
-        console.log("VALUE SELECT:", value.value)
-        setOfferData({...offerData, [name]:value.value})
-        console.log("Nuevos Datos: ",offerData)        
-    }
+    }    
     //Evalua el cambio de valor del input
     const onChange = (e) => {
         const {name, value} = e.target
         setOfferData({...offerData, [name]:value})
         console.log("Nuevos Datos: ",offerData)
-    }
-    
+    }    
     //Envia la informacion
     const onSubmit = async (e) => {      
         try {
             e.preventDefault()    
-            console.log("Datos a Submit:",offerData)
+            //console.log("Datos a Submit:",offerData)
             await offersServices.newOffer(offerData) 
             setOfferData(OFFER_INI_DATA)
-            setErrMsg("Datos registrados correctamente.")             
+            setErrMsg("")             
         } catch (error) {
             console.error("ERROR:", error)
             setErrMsg(error.response.data.message)             
+        } finally{
+            toast({
+                title: "Crear Oferta",
+                description: errMsg?errMsg:"Tu nueva oferta ha sido creada correctamente.",
+                status: errMsg?'error':'success',
+                duration: 5000,
+                isClosable: true,
+            })
         }        
     }    
 
@@ -108,10 +111,10 @@ function CreateOffersPage() {
             )}
             <form onSubmit={onSubmit} style={{ marginTop: "30px" }}>
                 <Flex flexDir={"column"} gap={"30px"}>
-                    {OPTIONS.map(({option, type}) => {
-                        console.log("opcion menu:", option)
+                    {OPTIONS.map(({option, type, placeholder}) => {
+                        //console.log("opcion menu:", option)
                         if (option == "country") {
-                            console.log("Llena Select:", option, countriesData)
+                            //console.log("Llena Select:", option, countriesData)
                             return (
                                 <Select
                                     name={option}
@@ -120,6 +123,7 @@ function CreateOffersPage() {
                                     value={optionSelected}
                                     options={optionsSelect}
                                     styles={stylesSelect}
+                                    placeholder={placeholder}
                                     onChange={(value) => {
                                         setOptionSelected(value)
                                         //console.log("VALUE SELECT:", value.value)
@@ -135,7 +139,7 @@ function CreateOffersPage() {
                                     name={option}
                                     onChange={onChange}
                                     key={option}
-                                    placeholder={capitalizeText(option)} 
+                                    placeholder={placeholder} 
                                     value={offerData[option]}                                
                                 />
                                 )
@@ -145,26 +149,15 @@ function CreateOffersPage() {
                 <SubmitButton />
             </form>
         </Flex>
-        <Text color={"red"} fontSize={"2xl"} fontWeight={"bold"} mt={"10px"}>
+        {/* <Text color={"red"} fontSize={"2xl"} fontWeight={"bold"} mt={"10px"}>
             {errMsg}
-        </Text>
+        </Text> */}
     </Flex>
     </FormPageLayaut>
   )
 }   
 export default CreateOffersPage    
 
-/*     <FormPageLayaut backgroundImage={IMAGE}>
-        <Flex flexDir={"column"}>
-            <CustomForm options={OPTIONS} initData={offerData} onSubmit ={onSubmit}
-                onChange ={onChange} title={"Crear"} subtitle={"Registra Nueva Oferta"}
-            >
-            </CustomForm>
-            <Text color={"red"} fontSize={"large"} fontWeight={"bold"}>
-                {errMsg}
-            </Text>
-        </Flex>
-    </FormPageLayaut>    
-  ) */
+
 
 

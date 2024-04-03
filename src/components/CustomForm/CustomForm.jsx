@@ -26,14 +26,14 @@ const CustomForm = ({
             )}
             <form onSubmit={onSubmit} style={{ marginTop: "30px" }}>
                 <Flex flexDir={"column"} gap={"30px"}>
-                    {options.map(({option, type}) => {
+                    {options.map(({option, type, placeholder}) => {
                         return (
                         <Input
                             type= {type} //{option === "password" ? "password" : "text"}
                             name={option}
                             onChange={onChange}
                             key={option}
-                            placeholder={capitalizeText(option)} // CAPITALIZED!!! "name" => "Name"
+                            placeholder={placeholder} 
                             value={initData[option]}
                         />
                         )

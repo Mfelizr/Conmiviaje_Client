@@ -26,7 +26,7 @@ const Footer = () => {
                 { 
                     ICONS.map(({components, link, id}) => {     
                         return(
-                            <CustomLink to={link} cursor = {"pointer"} key={id}>{components}</CustomLink>
+                            <CustomLink to={link} key={id}>{components}</CustomLink>
                         )
                     })
                 }

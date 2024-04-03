@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import offersServices from "../../services/offers.services";
-import { Box, Flex, Text, useDisclosure } from "@chakra-ui/react";
+import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Box, Button, Flex, Text, useDisclosure } from "@chakra-ui/react";
 import FormPageLayaut from "../../components/FormPageLayaut/FormPageLayaut";
 import OfferDetails from "../../components/OfferDetails/OfferDetails";
 import CustomForm from "../../components/CustomForm/CustomForm";
 import Modal from "../../components/Modal/Modal";
+import Loading from "../../components/Loading/Loading";
 
-//const OPTIONS = ["image", "description", "price", "date_start", "date_end", "conditions"]
 const OPTIONS = [    
-    {option: "image", type:"url"}, 
-    {option: "description", type:"text"}, 
-    {option: "price", type:"number"}, 
-    {option: "date_start", type:"date"}, 
-    {option: "date_end", type:"date"}, 
-    {option: "conditions", type:"text"}, 
+    {option: "image", type:"url",  placeholder: "URL Imagen"}, 
+    {option: "description", type:"text",  placeholder: "Descripción"}, 
+    {option: "price", type:"number",  placeholder: "Precio"}, 
+    {option: "date_start", type:"date",  placeholder: "Fecha Inicio"}, 
+    {option: "date_end", type:"date",  placeholder: "Fecha Fin"}, 
+    {option: "conditions", type:"text",  placeholder: "Condiciones"}, 
 ]
 const OFFER_INI_DATA = {
     country:"",
@@ -29,10 +29,14 @@ let countryName =""
 
 const OfferDetailsPage = () => {
     const {isOpen, onOpen, onClose} = useDisclosure()
+    const cancelRef = useRef()
+    const navigate = useNavigate()
     const [showModal, setShowModal] = useState(false)
+    const [showAlert, setShowAlert] = useState(false)
     const [offerData, setOfferData] = useState(OFFER_INI_DATA)
 
     const [editOfferData, setEditOfferData] = useState(offerData)
+    const [isLoadingData, setIsLoadingData] = useState(true)
     
     const { id } = useParams()
 
@@ -56,10 +60,28 @@ const OfferDetailsPage = () => {
             if (singleOffer) setOfferData(singleOffer)
         } catch (error) {
             console.error(error)
+        } finally {
+            setIsLoadingData(false)
         }
+
     }
     //Para carga de datos iniciales
     useEffect(()=>{getSingleOffer()}, [])
+
+    //Para eliminar oferta
+    const onOfferDelete = async (e) => {
+        try {
+            e.preventDefault()    
+            console.log("Datos a Eliminar:", editOfferData)
+            //const deletedOffer = true
+            const deletedOffer = await offersServices.deleteOffer(id) 
+            //volver a la pagina principal o de ofertas
+            setShowAlert(false)                        
+            if (deletedOffer) navigate("/offers")
+        } catch (error) {
+            console.error(error)
+        }        
+    }
 
     //Evalua el cambio de valor del input
     const onChange = (e) => {
@@ -83,10 +105,14 @@ const OfferDetailsPage = () => {
     }
     //useEffect(()=>{}, [editOfferData])
     
+    if (isLoadingData) 
+        return <Loading/>
+
     return (
         <FormPageLayaut backgroundImage={image}>
             <OfferDetails 
                 onOpen={()=> setShowModal(true)}
+                onOpenAlertDelete={()=>setShowAlert(true)}
                 offerDetails={OFFER_DETAILS}
             />
             {showModal && (
@@ -101,6 +127,36 @@ const OfferDetailsPage = () => {
                     >
                     </CustomForm>
                 </Modal>
+                )
+            }
+            
+            {showAlert && (
+                <AlertDialog
+                    isOpen={showAlert}
+                    leastDestructiveRef={cancelRef}
+                    onClose={()=>setShowAlert(false)}                >
+                    <AlertDialogOverlay>
+                    <AlertDialogContent>
+                        <AlertDialogHeader fontSize={["lg","xl","2xl"]} fontWeight='bold'>
+                            Borrar Oferta
+                        </AlertDialogHeader>
+            
+                        <AlertDialogBody>
+                            ¿Esta seguro de borrar la oferta? Una vez confirmado no se puede recuperar.
+                        </AlertDialogBody>
+            
+                        <AlertDialogFooter>
+                        <Button ref={cancelRef} onClick={()=>setShowAlert(false)}>
+                            Cancelar
+                        </Button>
+                        <Button colorScheme='red' onClick={onOfferDelete} ml={3}>
+                            Borrar
+                        </Button>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                    </AlertDialogOverlay>
+                </AlertDialog>
+
                 )
             }
 

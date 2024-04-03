@@ -54,7 +54,7 @@ const SitataEntryRequirements = () => {
     return (
         <Flex width={"100%"} flexDir={"column"}>                            
 
-            <Text fontSize={["24px","36px"]} >Requisitos de entrada para tu país destino: {originCountry} - {destinationCountry}</Text>            
+            <Text fontSize={["xl","2xl","3xl","3xl"]} >Requisitos de entrada para tu país destino:</Text>            
             {entryRequirementData.map(({id, type, value, comment, reference, updated_at, effective_as_of})=>{
                 const typeDescription = TYPE[type]
                 const valueDescription = VALUE[value]
@@ -64,16 +64,16 @@ const SitataEntryRequirements = () => {
                         <AccordionItem key={id}>
                             <h2>
                             <AccordionButton>
-                                <Box as="span" flex='1' textAlign='left' fontWeight={"bold"} >
+                                <Box as="span" flex='1' textAlign='left' fontWeight={"bold"} fontSize={["lg","xl","2xl","2xl"]} >
                                     {typeDescription}
                                 </Box>
                                 <AccordionIcon />
                             </AccordionButton>
                             </h2>
                             <AccordionPanel pb={4}>                                
-                                <Text> {valueDescription} </Text> 
-                                <Text> {comment} </Text>
-                                <Text> {reference} </Text>
+                                <Text fontSize={["lg","xl","2xl","2xl"]}> {valueDescription} </Text> 
+                                <Text fontSize={["lg","xl","2xl","2xl"]}> {comment} </Text>
+                                <Text fontSize={["lg","xl","2xl","2xl"]}> {reference} </Text>
                             </AccordionPanel>
                         </AccordionItem>
                     </Accordion>

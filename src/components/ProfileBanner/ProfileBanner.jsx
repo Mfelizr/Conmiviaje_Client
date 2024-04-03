@@ -31,7 +31,7 @@ const ProfileBanner = ({
                 Email: {email}
             </Text>
         </Flex>
-        <Flex gap={"18px"} position={"absolute"} top={"24px"} right={"24px"}>            
+        <Flex gap={"20px"} position={"absolute"} top={"24px"} right={"24px"}>            
             <Box cursor={"pointer"}  onClick={handleUserEdit}>
                 <PenEditIcon />
             </Box>

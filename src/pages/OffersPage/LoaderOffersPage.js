@@ -1,7 +1,7 @@
 import offerService from "../../services/offers.services"
 
 const LoaderOffersPage = async () => {
-  const resOffers = await offerService.getAllOffers()
+  const resOffers = await offerService.getActiveOffers()
 
   return resOffers
 }

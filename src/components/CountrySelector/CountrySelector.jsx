@@ -9,6 +9,9 @@ import { COLORS } from "../../theme";
 const optionsSelect = [
     { label: 'República Dominicana', value: '65fb7d0fb29b5aff6e2070a8', iso:"DO" },
     { label: 'España', value: '65fb7d5cb29b5aff6e2070a9', iso: "ES" },    
+    { label: 'Canadá', value: '660bf505e4414b86e420e62a', iso: "CA" },   
+    { label: 'Estados Unidos', value: '660bf63ce4414b86e420e62f', iso: "UE" },   
+    { label: 'Colombia', value: '660bf670e4414b86e420e630', iso: "CO" },   
 ]
 
 const CountrySelector = () => {

@@ -16,7 +16,7 @@ const Navbar = () => {
         {link: "/aboutUs", text: "Sobre Nosotros"},                    
     ]
     const RESTRICTED_LINK = [        
-        {link: "/offers/create", text: "Crear"},
+        {link: "/offers/create", text: "Crear Oferta"},
     ]
 
     const { user, logout } = useContext(AuthContext)
@@ -44,34 +44,38 @@ const Navbar = () => {
                             textDecoration={isActiveLink?"underline":"none"}
                             fontWeight = {isActiveLink?"bold":"normal"}
                         >   
-                            <Text fontSize={["14px","24px"]} >{text}</Text>
+                            <Text fontSize={["xl","2xl","3xl","3xl"]} >{text}</Text>
                         </CustomLink>
                     )
                 })
             }            
         </Flex>
-        <Flex gap={"34px"}>
+        {/* <Flex>
             {                
             user && user.role=="admin"?(
                 RESTRICTED_LINK.map(({link, text}) => {
-                    const isActiveLink = location.pathname === link
-                    
-                    return(
-                        <CustomLink 
+                    const isActiveLink = location.pathname === link                    
+                    return(                    
+                         <CustomLink 
                             to={link} 
                             key={text}
                             textDecoration={isActiveLink?"underline":"none"}
-                            fontWeight = {isActiveLink?"bold":"normal"}
+                            fontWeight = {isActiveLink?"bold":"normal"}                          
                         >   
-                            <Text fontSize={["14px","24px"]} >{text}</Text>
-                        </CustomLink>
+                            <Text fontSize={["xl","2xl","3xl","3xl"]} >{text}</Text>
+                        </CustomLink> 
                     )
             })):(<></>)  
             }
-        </Flex>              
+        </Flex>               */}
         <Flex gap={"20px"}>            
-            {user?(
-                <>
+            {user?                 
+                (                 
+                <> {user.role=="admin"?
+                        (<>                    
+                            <AuthLink to={"/offers/create"}>Crear Ofertas</AuthLink>                    
+                        </>):null
+                    }
                     <AuthLink onClick={logout}>Desconectar</AuthLink>
                     <AuthLink to={"/profile"}>Perfil</AuthLink>                    
                 </>
@@ -85,9 +89,9 @@ const Navbar = () => {
         </Flex>
         
         </Flex>
-        <Flex backgroundImage={banner} 
+        {/* <Flex backgroundImage={banner} 
             padding={"34px 80px"} width={"100%"} maxH={"40px"}>        
-        </Flex>    
+        </Flex>     */}
     </Flex>
     
     )

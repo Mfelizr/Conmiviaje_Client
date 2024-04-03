@@ -6,9 +6,9 @@ const Input = ({ placeholder, onChange, ...props }) => {
         onChange={onChange}
         minH={"70px"}
         fontWeight={"bold"}
-        fontSize={["14px", "24px"]}
+        fontSize={["lg","xl","2xl","2xl"]}
         borderRadius={"20px"}
-        backgroundColor={"#D9D9D9"}
+        //backgroundColor={"#D9D9D9"}
         boxShadow={"none"}
         _placeholder={{ color: "#767676" }}
         _focus={{ boxShadow: "black" }}
@@ -19,3 +19,4 @@ const Input = ({ placeholder, onChange, ...props }) => {
   }
   
   export default Input
+  

@@ -9,11 +9,11 @@ const FeaturedOffers = () => {
 
     //axios getall offers
     const getNineOffers = async () => {
-        console.log("Busca 9 ofertas")
+        console.log("Busca 8 ofertas")
         try {
-            const resOffers = await offerService.getAllOffers()
+            const resOffers = await offerService.getActiveOffers()
             //console.log("Imported Data:", resOffers )
-            if (resOffers) setOffers(resOffers.slice(0,9) )            
+            if (resOffers) setOffers(resOffers.slice(0,8) )            
         } catch (error) {
             console.error("Error:", error)            
         }

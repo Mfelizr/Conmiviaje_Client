@@ -6,10 +6,12 @@ const stylesSelect={
     control:(styles, state) => {
         return {...styles, 
             minH:"70px",
+            minW:"70px",
             fontWeight: "bold",
-            fontSize: "24px",                
+            fontSize: "20px",                
             borderRadius: "20px",
-            backgroundColor: "#D9D9D9",
+            //backgroundColor: "#D9D9D9",
+            placeholder:"País...",            
             boxShadow: state.isFocused ? "black" : "none",
         }
   },
@@ -17,8 +19,8 @@ const stylesSelect={
     return {
         ...styles,
         fontWeight: "bold",
-        fontSize: "24px",     
-        backgroundColor: "#D9D9D9",
+        fontSize: "20px",     
+        //backgroundColor: "#D9D9D9",
         color: "black",
     }
   }
@@ -26,7 +28,7 @@ const stylesSelect={
 
 const CustomSelect = ({data, name, ...props}) => {
     const { setOrigin, setDestination } = useContext(AuthContext) 
-    console.log ("PRPS SELECT: ", {...props})
+    //console.log ("PRPS SELECT: ", {...props})
     const [optionSelected, setOptionSelected] = useState(null)    
     console.log ("LISTA PAISES Select: ", data)    
     
@@ -53,8 +55,7 @@ const CustomSelect = ({data, name, ...props}) => {
             styles={stylesSelect}     
             onChange={(value) => {
                     setOptionSelected(value)
-                    console.log("VALUE SELECT:", value)                
-                    //console.log("Nuevos Datos: ", offerData)
+                    //console.log("VALUE SELECT:", value)                                    
                     setCountries(value)
             } }
             {...props}

@@ -12,16 +12,17 @@ const OfferGrid  = ({offers}) =>{
             "repeat(1, 1fr)",
             "repeat(1, 1fr)",
             "repeat(2, 1fr)",
-            "repeat(3, 1fr)",
+            "repeat(4, 1fr)",
           ]}
           gap={"40px"}
         >
-            {offers.map(({country, image, price, _id}) => {
+            {offers.map(({country, description, image, price, _id}) => {
                 return (
                     <CustomLink key={_id} to={`/offers/${_id}`}>
                         <OfferCard
                             key={_id}
                             countryName={country.name}
+                            description={description}
                             image={image}
                             price={price}
                             handleLike={handleLike}

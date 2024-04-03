@@ -15,9 +15,9 @@ const ProfilePage = () => {
     //Busca las ofertas
 /*     const getThreeOffers = async () => {        
         try {
-            const resOffers = await offersServices.getAllOffers()
+            const resOffers = await offersServices.getActiveOffers()
             
-            if (resOffers) favoriteOffers2 = resOffers.slice(0,3)            
+            if (resOffers) favoriteOffers2 = resOffers.slice(0,4)            
             console.log("Imported Data:", favoriteOffers2 )
         } catch (error) {
             console.error("Error:", error)            

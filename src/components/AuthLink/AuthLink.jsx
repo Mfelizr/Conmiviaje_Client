@@ -13,7 +13,7 @@ const AuthLink = ({ onClick, children, to }) => {
       to={to}
     >
       <Flex justify={"center"} alignItems={"center"}>
-        <Text as={"span"} fontSize={["10px","20px"]}>
+        <Text as={"span"} fontSize={["lg","xl","2xl","2xl"]}>
           {children}
         </Text>
       </Flex>

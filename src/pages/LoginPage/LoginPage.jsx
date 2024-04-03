@@ -7,8 +7,8 @@ import { AuthContext } from "../../contexts/AuthContext";
 
 const IMAGE = "https://conmiviaje.com/wp-content/uploads/2021/10/maximilien-t-scharner-318691-unsplash-576x1024.jpg"
 const OPTIONS = [
-    {option:  "email", type:"email"}, 
-    {option: "password", type:"password"}, 
+    {option:  "email", type:"email", placeholder:"Correo"}, 
+    {option: "password", type:"password", placeholder: "Contraseña"}, 
 ]
 
 const INIT_DATA = {

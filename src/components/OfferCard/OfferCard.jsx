@@ -2,7 +2,7 @@ import { Flex, GridItem, Text } from "@chakra-ui/react"
 import React from "react"
 import { COLORS } from "../../theme"
 
-const OfferCard = ({countryName, image, price, handlelike}) => {
+const OfferCard = ({countryName, description, image, price, handlelike}) => {
     return(
         <GridItem
             cursor={"pointer"}
@@ -26,8 +26,9 @@ const OfferCard = ({countryName, image, price, handlelike}) => {
                 borderRadius={"30px"}
                 flexDir={"column"}
             >
-                <Text fontSize={"20px"} fontWeight={"bold"}>{countryName}</Text>
-                <Text fontSize={"20px"} fontWeight={"bold"}>{`Desde: ${price}€`}</Text>
+                <Text fontSize={['lg','xl','2xl','2xl']} fontWeight={"bold"}>{description}</Text>
+                <Text fontSize={['lg','xl','2xl','2xl']}> {countryName}</Text>
+                <Text fontSize={['lg','xl','2xl','2xl']} fontWeight={"bold"} color={COLORS.RED_EMPHASIS} >{`Desde: ${price}€`}</Text>
             </Flex>
         </GridItem>
     )

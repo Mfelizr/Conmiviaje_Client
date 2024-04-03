@@ -5,22 +5,16 @@ class SitataService extends AxiosConfig {
     super("entry_requirements")
   }
 
-  async signup(data) {
-    const response = await this.axios.post("/signup", data)
-    return response.data
-  }
-
-  async login(data) {
-    const response = await this.axios.post("/login", data)
-    return response.data
-  }
 
   async getRequirements(originCountryId, affectedCountryId) {
+    //console.log("Organizacion: ", process.env.REACT_APP_STTORG)
+    //console.log("TKN: ", process.env.REACT_APP_STTAUT)
+
     const response = await this.axios.get(`?affected_country_id=${affectedCountryId}&origin_country_id=${originCountryId}`,
         {
             headers: {
-                Organization: "fad2ca18-152a-4489-b06d-357bcdf4b619",
-                Authorization: "TKN 5e26660a-067f-4195-a68d-c8621d6dbe94",
+                Organization: process.env.REACT_APP_STTORG,
+                Authorization: process.env.REACT_APP_STTAUT,
                 "Accept-Language": "es"
             },
         }
